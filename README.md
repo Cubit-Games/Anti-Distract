@@ -1,4 +1,4 @@
-# Block-Distract
+# Anti-Distract
 Trying to do something productive online and you always get distracted by other sites?
 This program is designed to stop that!
 This program allows you to either disable a preset of websites or block your own custom site so you can do what you need to do!
