@@ -1,5 +1,61 @@
+cecho.exe
 cecho_x64.exe
 @echo off
+title Anti-Distract V0.2
+cls
+
+
+if exist "firstTimeOpening.txt" (
+
+goto password
+
+
+) else (
+
+goto pass
+)
+
+
+
+
+
+
+
+:pass
+
+set /p AntiDistractPassword=<C:\AntiDistract\password.txt
+echo.
+echo.
+cecho Please Enter The {0C}Password{0A} To Access {0C}Anti-Distract{0A}
+echo.
+set "psCommand=powershell -Command "$pword = read-host 'Pass: ' -AsSecureString ; ^
+    $BSTR=[System.Runtime.InteropServices.Marshal]::SecureStringToBSTR($pword); ^
+        [System.Runtime.InteropServices.Marshal]::PtrToStringAuto($BSTR)""
+for /f "usebackq delims=" %%p in (`%psCommand%`) do set UI=%%p
+title Anti-Distract V0.2
+
+if %UI%==%AntiDistractPassword% goto start
+
+cecho {0C}
+echo The Password You Entered Was Incorrect
+echo.
+echo.
+echo Please Try Again
+echo.
+echo.
+cecho {0A}
+goto pass
+
+
+
+
+
+
+
+
+
+
+
 :start
 cls
 cecho {0A}What Would You Like To {0C}Disable?
@@ -13,7 +69,7 @@ echo.
 cecho {0A}Social Media({0C}Facebook{0A}, {0C}Instagram{0A}, {0C}Twitter{0A}, {0C}GooglePlus{0A}, {0C}Tumblr{0A}, {0C}Pinterest{0A}, {0C}Vine){0A} - {0C}3
 echo.
 echo.
-cecho {0A}Email({0C}Gmail{0A}, {0C}Yahoo{0A}, {0C}Outlook(Hotmail)0A}, {0C}Mail.com){0A} - {0C}4
+cecho {0A}Email({0C}Gmail{0A}, {0C}Yahoo{0A}, {0C}Outlook(Hotmail){0A}, {0C}Mail.com){0A} - {0C}4
 echo.
 echo.
 cecho {0A}All({0C}All listed sites on here, not the whole Web){0A} - {0C}5
@@ -25,9 +81,13 @@ echo.
 cecho {0A}Enable All Sites Again - {0C}7
 echo.
 echo.
+cecho {0A}Exit {0C}Anti-Distract{0A} - {0C}8
+echo.
+echo.
 echo.
 cecho {0A}Please Enter The {0C}Number{0A} Assigned With The {0C}Option{0A} You Want
 echo.
+
 set /p UI=
 
 if %UI%== 1 goto youtube
@@ -37,6 +97,7 @@ if %UI%== 4 goto mail
 if %UI%== 5 goto all
 if %UI%== 6 goto custom
 if %UI%== 7 goto refresh
+if %UI%== 8 exit
 
 
 echo.
@@ -411,3 +472,30 @@ echo.
 cecho {0C}Sites{0A} have been {0C}refreshed{0A}(restart browser for effect).
 pause>nul
 goto start
+
+
+
+:password
+echo.
+cecho Enter The {0C}Password{0A} You Will Use Whenever Opening {0C}AntiDistract{0A}
+echo.
+echo.
+cecho {0C}AFTER ENTERING YOUR PASSWORD HERE TO USE AntiDistract, IT CANNOT BE CHANGED{0A}
+echo.
+echo.
+echo.
+echo.
+set /p UI=Enter Password:
+md C:\AntiDistract
+@echo %UI%>C:\AntiDistract\password.txt
+echo.
+echo.
+cecho Your {0C}Password{0A} To Open {0C}AntiDistract{0A} Now Is '{0C}%UI%{0A}'
+echo.
+echo.
+echo.
+cecho {0C}PRESS ANY KEY TO EXIT AND RE-OPEN AntiDistract{0A}
+del firstTimeOpening.txt
+pause>nul
+start AntiDistractV02x32.bat
+exit

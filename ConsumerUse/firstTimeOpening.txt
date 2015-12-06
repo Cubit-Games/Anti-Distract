@@ -1,0 +1,2 @@
+This file exists just to let the program know this is its first time opening, meaning you need to enter a password that will then be
+used whenever opening it after that. This file will be deleted once you do make a password for AntiDistract
